@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player MPB</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-blue: #2f81f7;
+            --text-white: #ffffff;
+            --text-gray: #8b949e;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Container Principal (O Celular/Card) */
+        .player-card {
+            background-color: var(--bg-color); /* Fundo escuro */
+            width: 350px;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            color: var(--text-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #30363d;
+        }
+
+        /* Capa do Álbum */
+        .album-art {
+            width: 100%;
+            height: 300px;
+            background-color: var(--accent-blue);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(47, 129, 247, 0.3);
+        }
+
+        /* Informações da Música */
+        .song-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .song-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .artist-name {
+            color: var(--accent-blue);
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        /* Barra de Progresso */
+        .progress-container {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #30363d;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            width: 30%; /* Progresso atual */
+            height: 100%;
+            background-color: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        .time-stamps {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin-top: 8px;
+        }
+
+        /* Controles de Reprodução */
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 30px;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        .btn-control {
+            background: none;
+            border: none;
+            color: var(--accent-blue); /* Ícones azuis */
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        .btn-control:hover {
+            transform: scale(1.1);
+            color: #58a6ff;
+        }
+
+        .btn-play {
+            background-color: rgba(47, 129, 247, 0.2);
+            color: var(--accent-blue);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--accent-blue);
+        }
+
+        .btn-play:hover {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+
+        /* Botões de Ação (Rodapé) */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .pill-btn {
+            background-color: #21262d;
+            border: none;
+            color: var(--text-gray);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .pill-btn:hover {
+            background-color: #30363d;
+            color: var(--text-white);
+        }
+
+        .pill-btn.active {
+            color: #f78166; /* Cor de like ativo */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="player-card">
+        <div class="album-art">
+            [Capa do Álbum/Música]
+        </div>
+
+        <div class="song-info">
+            <div class="song-title">Nome da Música</div>
+            <div class="artist-name">Artista MPB</div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" onclick="alert('Barra de progresso clicada!')">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="time-stamps">
+                <span>0:52</span>
+                <span>3:15</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-control" onclick="console.log('Repetir')">
+                <i class="fa-solid fa-repeat"></i>
+            </button>
+            
+            <button class="btn-control" onclick="console.log('Anterior')">
+                <i class="fa-solid fa-backward-step"></i>
+            </button>
+
+            <button class="btn-control btn-play" id="playBtn" onclick="togglePlay()">
+                <i class="fa-solid fa-play" id="playIcon"></i>
+            </button>
+
+            <button class="btn-control" onclick="console.log('Próxima')">
+                <i class="fa-solid fa-forward-step"></i>
+            </button>
+
+            <button class="btn-control" onclick="console.log('Volume')">
+                <i class="fa-solid fa-volume-high"></i>
+            </button>
+        </div>
+
+        <div class="action-buttons">
+            <button class="pill-btn" onclick="toggleLike(this)">
+                <i class="fa-solid fa-heart"></i> Curtir
+            </button>
+            <button class="pill-btn" onclick="alert('Abrir comentários')">
+                Comentários
+            </button>
+            <button class="pill-btn" onclick="alert('Compartilhar')">
+                Compartilhar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let isPlaying = false;
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            const icon = document.getElementById('playIcon');
+            const btn = document.getElementById('playBtn');
+            
+            if (isPlaying) {
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+                console.log("Música tocando...");
+            } else {
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+                console.log("Música pausada.");
+            }
+        }
+
+        function toggleLike(btn) {
+            // Alterna a classe 'active' para mudar a cor do coração
+            btn.classList.toggle('active');
+            console.log("Like alternado");
+        }
+    </script>
+</body>
+</html>
